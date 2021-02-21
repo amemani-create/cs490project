@@ -24,7 +24,7 @@ SECRET_KEY = '&emb7#q0n1=0#)ppms**$+njn!xn!zhm!z*z0=vu_sgji_3eq!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
