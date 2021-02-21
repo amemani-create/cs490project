@@ -1,0 +1,13 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Register</h1>
+    <div class ="form-group">
+    <table>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_table }}
+            <button class="btn btn-secondary">Register</button>
+        </form>
+    </table>
+    </div>
+{% endblock content %}

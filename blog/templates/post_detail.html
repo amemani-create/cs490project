@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Post: {{ post.title }}</h3>
+<small> By: {{ post.author }}</small>  <br/><br/>
+    {% if user.is_authenticated %}
+        <small> <p class="tags">
+            Tags:
+            {% for tag in post.tags.all %}
+            <a href="{% url 'tags' tag.slug %}">{{ tag.name }}</a>
+            {% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </p>
+        </small>  <hr>
+        {{ post.content|safe }} <br>
+<hr>
+    <form action="{% url 'post_like' object.id %}" method="POST">
+        {% csrf_token %}
+        {% if post_is_liked %}
+            <button type="submit" name="blogpost_id" value="{{object.id}}" class="btn btn-info">Unlike</button>
+        {% else %}
+             <button type="submit" name="blogpost_id" value="{{object.id}}" class="btn btn-info">Like</button>
+        {% endif %}
+    </form>
+        <strong class="text-secondary">{{ number_of_likes }} Like{{ number_of_likes|pluralize }}</strong></br></br>
+
+        <small> <a href="{% url 'update_post' post.pk %}">Edit</a> </small>
+        <small> <a href="{% url 'delete_post' post.pk %}">Delete</a> </small>
+        <small><a href="{% url 'post_list' %}">Back</a> </br></br> </small>
+        <a class="btn btn-secondary" href="{% url 'add_comment' pk=post.pk %}">Add comment</a>
+        <hr>
+            {% for comment in post.comments.all %}
+            <div class="comment">
+            <div class="date">{{ comment.created_date }}</div>
+                <strong>{{ comment.author }}</strong>
+                <p>{{ comment.comment|linebreaks }}</p>
+            </div>
+            {% empty %}
+                <p>No comments here yet :(</p>
+            {% endfor %} </br></br>
+    {% else %}
+        {{ post.content|slice:":50"|safe }}... </br>
+        <small><p class="tags">
+            Tags:
+            {% for tag in post.tags.all %}
+            <a href="{% url 'tags' tag.slug %}">{{ tag.name }}</a>
+            {% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </p>
+        </small>
+        <hr>
+        You must <a href="{% url 'register' %}">Register</a> to Read More!<hr>
+        </br><small><a href="{% url 'post_list' %}">Back</a> </br></br> </small>
+    {% endif %}
+
+
+{% endblock %}
