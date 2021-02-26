@@ -7,6 +7,9 @@ name = "pypi"
 django = "==3.1"
 gunicorn = "==19.9.0"
 django-taggit = "*"
+psycopg2 = "*"
+environs = {version = "==8.0.0", extras = ["django"]}
+whitenoise = "==5.1.0"
 
 [dev-packages]
 
