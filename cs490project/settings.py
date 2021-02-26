@@ -93,14 +93,7 @@ WSGI_APPLICATION = 'cs490project.wsgi.application'
         'PORT': '5432',""""""
 }"""
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'cs490project',
-        'USER': 'postgres',
-        'PASSWORD': 'aditi',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': env.dj_db_url("DATABASE_URL")
 
 }
 
