@@ -11,6 +11,8 @@ psycopg2 = "*"
 environs = {version = "==8.0.0", extras = ["django"]}
 whitenoise = "==5.1.0"
 psycopg2-binary = "==2.8.5"
+django-ckeditor = "*"
+pillow = "*"
 
 [dev-packages]
 

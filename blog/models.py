@@ -2,15 +2,17 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from taggit.managers import TaggableManager
-
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 class Post(models.Model):
     title = models.CharField(max_length=200, unique=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
     updated_on = models.DateTimeField(auto_now=True)
-    content = models.TextField()
+    content = RichTextField(blank=True, null=True)
+    #content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
+    #snippet = models.CharField(max_length=200, default=content)
     tags = TaggableManager()
     likes = models.ManyToManyField(User, related_name='blogpost_like')
 
@@ -45,3 +47,17 @@ class Comment(models.Model):
         return 'Comment {} by {}'.format(self.comment, self.author)
 
 
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    bio = models.TextField()
+    profile_pic = models.ImageField(null=True, blank=True, upload_to="images/profile/")
+    linkedin_url = models.CharField(max_length=200, null=True, blank=True)
+    fb_url = models.CharField(max_length=200, null=True, blank=True)
+    instagram_url = models.CharField(max_length=200, null=True, blank=True)
+    personal_url = models.CharField(max_length=200, null=True, blank=True)
+
+    #user_type = models.CharField(max_length=255, default='Parent')
+    #school_level_pref = models.ManyToManyField()
+
+    def __str__(self):
+        return str(self.user)
