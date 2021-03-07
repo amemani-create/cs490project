@@ -1,17 +1,16 @@
 {% extends 'base.html' %}
 {% block title %}
-    Add Post
+    Create Profile
 {% endblock %}
 {% block content %}
     {% if user.is_authenticated %}
-<h1>Add Post</h1>
+<h1>Create Profile Page</h1>
 <div class ="form-group">
     <table>
         <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.media }}
         {{ form.as_p }}
-            <button class="btn btn-secondary">Post</button>
+            <button class="btn btn-secondary">Save</button>
         </form>
 
     </table>
@@ -19,7 +18,7 @@
 <hr>
 <br/>
         {% else %}
-        You must Register to Add a Post!
+            You must register to access this page!
     {% endif %}
 <a href="{% url 'post_list' %}">Back</a>
 {% endblock %}

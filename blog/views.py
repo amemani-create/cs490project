@@ -95,3 +95,4 @@ def AddComment(request, pk):
     else:
         form = CommentForm()
     return render(request, 'add_comment.html', {'form': form})
+

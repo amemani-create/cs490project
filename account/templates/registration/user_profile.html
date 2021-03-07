@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <h1>User Profile</h1> </br>
+    <div class="card mb-3">
+    <div class="row g-0">
+    <div class="col-md-2">
+        {% if post.author.profile.profile_pic %}
+            <img src="{{ page_profile.profile_pic.url}}" width="200" height="200" class="card-img">
+        {% else %}
+            <img src="{% static 'blog/images/book_image.jpg' %}" width="200" height="200" class="card-img">
+        {% endif %}
+    </div>
+    <div class="col-md-10">
+      <div class="card-body">
+        <h5 class="card-title">{{ page_profile.user.first_name }} {{ page_profile.user.last_name }}</h5>
+        <p class="card-text"> {{ page_profile.bio}} </p>
+        <p class="card-text"><small class="text-muted"></small>
+            {% if page_profile.personal_url %}
+                  <a href="{{ page_profile.personal_url }}">Website</a>
+            {% endif %}
+            {% if page_profile.linkedin_url %}
+                 | <a href="{{ page_profile.linkedin_url }}">LinkedIn</a>
+            {% endif %}
+            {% if page_profile.fb_url %}
+                 | <a href="{{ page_profile.fb_url }}">Facebook</a>
+            {% endif %}
+            {% if page_profile.instagram_url %}
+                 | <a href="{{ page_profile.instagram_url }}">Instagram</a>
+            {% endif %}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <small><a href="{% url 'post_list' %}">Back</a> </br></br> </small>
+{% endblock %}

@@ -13,6 +13,8 @@ whitenoise = "==5.1.0"
 psycopg2-binary = "==2.8.5"
 django-ckeditor = "*"
 pillow = "*"
+django-channels = "*"
+channels-redis = "*"
 
 [dev-packages]
 

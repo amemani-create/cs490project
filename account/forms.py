@@ -1,20 +1,13 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django import forms
-
-user_choices = [('Educational Provider', 'Educational Provider'), ('Teacher', 'Teacher'), ('Parent', 'Parent'),
-                ('Student', 'Student')]
-school_level = [('Elementary School', 'Elementary School'), ('Middle School', 'Middle School'),
-                ('High School', 'High School')]
+from blog.models import Profile
 
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
     first_name = forms.CharField(max_length=200, widget=forms.TextInput(attrs={'class': 'form-control'}))
     last_name = forms.CharField(max_length=200, widget=forms.TextInput(attrs={'class': 'form-control'}))
-
-    #user_type = forms.Select(choices=user_choices)
-    # school_level_pref = forms.ModelMultipleChoiceField(queryset=school_level, label='Which School Level(s) are you interested in?', widget=forms.CheckboxSelectMultiple, required=True)
 
     class Meta:
         model = User
@@ -34,7 +27,7 @@ class EditProfileForm(UserChangeForm):
     last_name = forms.CharField(max_length=200, widget=forms.TextInput(attrs={'class': 'form-control'}))
     # last_login = forms.CharField(max_length=200, widget=forms.TextInput(attrs={'class': 'form-control'}))
     username = forms.CharField(max_length=200, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    #user_type = forms.Select(choices=user_choices)
+
     # is_superuser = forms.CharField(max_length=200, widget=forms.CheckboxInput(attrs={'class': 'form-check'}))
     # id_groups = forms.CharField(max_length=200, widget=forms.TextInput(attrs={'class': 'form-control'}))
     # is_staff = forms.CharField(max_length=200, widget=forms.CheckboxInput(attrs={'class': 'form-check'}))
@@ -58,3 +51,41 @@ class ChangePasswordForm(PasswordChangeForm):
     class Meta:
         model = User
         fields = ('old_password', 'new_password1', 'new_password2')
+
+
+class CreateProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = (
+            'is_eduprovider', 'is_teacher', 'is_parent', 'is_student', 'bio', 'profile_pic', 'linkedin_url', 'fb_url',
+            'instagram_url', 'personal_url')
+        widgets = {
+            'is_eduprovider': forms.CheckboxInput(attrs={'class': 'form-check'}),
+            'is_teacher': forms.CheckboxInput(attrs={'class': 'form-check'}),
+            'is_parent': forms.CheckboxInput(attrs={'class': 'form-check'}),
+            'is_student': forms.CheckboxInput(attrs={'class': 'form-check'}),
+            'bio': forms.Textarea(attrs={'class': 'form-control'}),
+            'linkedin_url': forms.TextInput(attrs={'class': 'form-control'}),
+            'fb_url': forms.TextInput(attrs={'class': 'form-control'}),
+            'instagram_url': forms.TextInput(attrs={'class': 'form-control'}),
+            'personal_url': forms.TextInput(attrs={'class': 'form-control'}),
+
+        }
+class EditProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = (
+            'is_eduprovider', 'is_teacher', 'is_parent', 'is_student', 'bio', 'profile_pic', 'linkedin_url', 'fb_url',
+            'instagram_url', 'personal_url')
+        widgets = {
+            'is_eduprovider': forms.CheckboxInput(attrs={'class': 'form-check'}),
+            'is_teacher': forms.CheckboxInput(attrs={'class': 'form-check'}),
+            'is_parent': forms.CheckboxInput(attrs={'class': 'form-check'}),
+            'is_student': forms.CheckboxInput(attrs={'class': 'form-check'}),
+            'bio': forms.Textarea(attrs={'class': 'form-control'}),
+            'linkedin_url': forms.TextInput(attrs={'class': 'form-control'}),
+            'fb_url': forms.TextInput(attrs={'class': 'form-control'}),
+            'instagram_url': forms.TextInput(attrs={'class': 'form-control'}),
+            'personal_url': forms.TextInput(attrs={'class': 'form-control'}),
+
+        }

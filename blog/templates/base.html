@@ -22,17 +22,33 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{% url 'post_list' %}">Resource Feed</a>
         </li>
+      <!--ignore everything above-->
+       <!--This shows when user is authenticated-->
         {% if user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'add_post' %}">Add Post</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'edit_profile' %}">Edit Profile</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="{% url 'logout' %}">Logout</a>
         </li>
-        {% else %}
+            <!--This shows Profile Dropdown-->
+            <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Profile Options
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          {% if user.profile.id %}
+              <li><a class="dropdown-item" href="{% url 'user_profile' user.profile.id %}">Profile Page</a></li>
+              <li><a class="dropdown-item" href="{% url 'edit_profile_page' user.profile.id%}">Edit Profile</a></li>
+          {% else %}
+              <li><a class="dropdown-item" href="{% url 'create_profile_page' %}">Create Profile</a></li>
+          {% endif %}
+            <li><a class="dropdown-item" href="{% url 'edit_profile' %}">Edit Profile Settings</a></li>
+
+          </ul>
+        </li>
+            <!--This shows when user is NOT authenticated-->
+            {% else %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'login' %}">Login</a>
         </li>
@@ -40,17 +56,7 @@
           <a class="nav-link" href="{% url 'register' %}">Register</a>
         </li>
         {% endif %}
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
+      <!--This shows everytime-->
       </ul>
       <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
